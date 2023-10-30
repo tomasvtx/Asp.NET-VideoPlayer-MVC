@@ -1,0 +1,31 @@
+﻿@model VideoPlayer_MVC.C_SHARP.MODELS.Login
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Přihlášení do systému pro @ViewBag.Action</h1>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+	<table id="customers" class="container-fluid" cellpadding="0" cellspacing="0">
+		<tr>
+			<th>
+			<td>Přihlašovací jméno: </td>
+			<td>
+					@Html.TextBoxFor(Model => Model.Username, "", new { @class = "text-danger" })
+			</td>
+
+			<td>Heslo: </td>
+			<td>
+				<input type="password" id="Password" name="Password">
+			</td>
+			<input style="display:none" type="text" value="@ViewBag.Action" id="Page" name="Page">
+			<td></td>
+			<td><input type="submit" value="Přihlásit se" /></td>
+		</tr>
+	</table>
+
+	<h3>@ViewBag.SpravnostHesla</h3>
+}

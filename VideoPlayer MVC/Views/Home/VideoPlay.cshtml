@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+<video id="myVideo" controls autoplay muted onclick="document.documentElement.requestFullscreen()">
+	<source src="@ViewBag.Video">
+</video>
+
+<div class="inner">
+	<h1>@ViewBag.ARG</h1>
+</div>
+
+<nav>
+	<ul>
+		<div class="VideoButtonDiv">
+			<a class="VideoButton btn btn-info" href="?prev=true&next=false"> <h1>Předchozí</h1></a>
+		</div>
+		<div class="VideoButtonDiv">
+			<a class="VideoButton btn btn-info" asp-area=""
+			   asp-controller="Home"
+			   asp-action="List"> <h1>Seznam</h1></a>
+		</div>
+		<div class="VideoButtonDiv">
+			<a class="VideoButton btn btn-info" href="?next=true&prevfalse"> <h1>Další >></h1></a>
+		</div>
+	</ul>
+</nav>
+
+
+<script type='text/javascript'>
+	document.getElementById('myVideo').addEventListener('ended', myHandler, false);
+	function myHandler(e) {
+		if (!e) { e = window.event; }
+		location.replace("?next=true");
+	}
+</script>

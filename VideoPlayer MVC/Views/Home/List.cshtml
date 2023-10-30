@@ -1,0 +1,405 @@
+﻿@model VideoPlayer_MVC.C_SHARP.MODELS.Search
+@{
+	ViewData["Title"] = "Seznam videa";
+}
+
+<div class="container-fluid">
+	<div class="container-fluid">
+		<nav>
+			<ul>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home"
+					   asp-action="Login" asp-route-Page="Reindex">Reindex</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="ServerMonitor">Server Status</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="RestartIIS">Restartovat IIS</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="VypnoutServer">Vypnout server</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" target="_parent " asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="State_of_DateTask">Table</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+	<div id="Search">
+	@using (Html.BeginForm("List", "Home", FormMethod.Get))
+	{
+			<div class="container-fluid">
+		<div class="content">
+		<table id="customers" class="container-fluid">
+			<tr class="container-fluid">
+				<th>
+					<table id="customers" class="container-fluid" cellpadding="0" cellspacing="0">
+						<tr>
+							<th colspan="2" align="center">Hledání video:</th>
+						</tr>
+						<tr>
+							<td>Název videa obsahuje: </td>
+							<td>
+								<input type="text" placeholder="Sem zadejte hledaný výraz" value="@VideoPlayer_MVC.C_SHARP.MODELS.VideoContain" id="VideoContain" name="VideoContain">
+							</td>
+						</tr>
+						<tr>
+							<td>Datum natočení od: </td>
+							<td>
+								<input type="date" id="DateMin" name="DateMin">
+								@if (VideoPlayer_MVC.C_SHARP.MODELS.DateMin is not null){
+								<script>document.getElementById("DateMin").valueAsDate = new Date(@VideoPlayer_MVC.C_SHARP.MODELS.DateMin.GetValueOrDefault().Year,@VideoPlayer_MVC.C_SHARP.MODELS.DateMin.GetValueOrDefault().Month,@VideoPlayer_MVC.C_SHARP.MODELS.DateMin.GetValueOrDefault().Day);</script>
+							}</td>
+						</tr>
+						<tr>
+							<td>Datum natočení do: </td>
+							<td>
+								<input type="date" id="DateMax" name="DateMax">
+								@if (VideoPlayer_MVC.C_SHARP.MODELS.DateMax is not null){
+								<script>document.getElementById("DateMax").valueAsDate = new Date(@VideoPlayer_MVC.C_SHARP.MODELS.DateMax.GetValueOrDefault().Year,@VideoPlayer_MVC.C_SHARP.MODELS.DateMax.GetValueOrDefault().Month,@VideoPlayer_MVC.C_SHARP.MODELS.DateMax.GetValueOrDefault().Day);</script>
+							}</td>
+						</tr>
+						<tr>
+							<td>složka videa: </td>
+							<td>
+								<select name="Autor" id="Autor">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosAuthors)
+									{
+										@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.Autor)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+					</table>
+				</th>	
+			</tr>
+		</table>
+
+		<table id="customers" class="container-fluid">
+			<tr class="container-fluid">
+				<th>
+					<table id="customers" class="container-fluid" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>poměr stran videa: </td>
+							<td>
+								<select name="ar" id="ar">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosAspectRatio)
+									{
+										@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.AspectRatio)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>formát videa: </td>
+							<td>
+								<select name="formatvid" id="formatvid">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosFormat)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.Format)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>video formát verze: </td>
+							<td>
+								<select name="formatvid_verz" id="formatvid_verz">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosFormatVersion)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.FormatVersion)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>snímková frekvence videa: </td>
+							<td>
+								<select name="fps" id="fps">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosFramerate)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.Framerate)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>délka videa: </td>
+							<td>
+								<select name="lenght" id="lenght">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosDurationMinuts)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.Duration)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>délka videa: </td>
+							<td>
+								<select name="lenghtID" id="lenghtID">
+									@if ("Kratsi_a_rovno_nez_zvolene" == VideoPlayer_MVC.C_SHARP.MODELS.DurationID)
+												{
+													<option selected value="Kratsi_a_rovno_nez_zvolene">Kratší a rovno než zvolené</option> 
+												}
+												else{
+													<option value="Kratsi_a_rovno_nez_zvolene">Kratší a rovno než zvolené</option>
+												}
+
+													@if ("Kratsi_nez_zvolene" == VideoPlayer_MVC.C_SHARP.MODELS.DurationID)
+												{
+													<option selected value="Kratsi_nez_zvolene">Kratší než zvolené</option> 
+												}
+												else{
+													<option value="Kratsi_nez_zvolene">Kratší než zvolené</option>
+												}
+
+													@if ("Delsi_a_rovno_nez_zvolene" == VideoPlayer_MVC.C_SHARP.MODELS.DurationID)
+												{
+													<option selected value="Delsi_a_rovno_nez_zvolene">Delší a rovno než zvolené</option> 
+												}
+												else{
+													<option value="Delsi_a_rovno_nez_zvolene">Delší a rovno než zvolené</option>
+												}
+												
+												@if ("Delsi_nez_zvolene" == VideoPlayer_MVC.C_SHARP.MODELS.DurationID)
+												{
+													<option selected value="Delsi_nez_zvolene">Delší než zvolené</option> 
+												}
+												else{
+													<option value="Delsi_nez_zvolene">Delší než zvolené</option>
+												}
+
+												@if ("none" == VideoPlayer_MVC.C_SHARP.MODELS.DurationID)
+												{
+													<option selected value="none"></option> 
+												}
+												else{
+													<option value="none"></option>
+												}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Audio formát: </td>
+							<td>
+								<select name="audio_format" id="audio_format">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosAudioCodec)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.AudioCodec)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Počet audio kanálů: </td>
+							<td>
+								<select name="audio_channels" id="audio_channels">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosAudioChannels)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.AudioChannels)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}	
+									
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Rozlišení videa: </td>
+							<td>
+								<select name="video_res" id="video_res">
+									@foreach (var item in VideoPlayer_MVC.C_SHARP.MODELS.AllVideosVideoResolution)
+									{
+											@if (@item == VideoPlayer_MVC.C_SHARP.MODELS.VideoResolution)
+										{
+										<option selected value="@item">@item</option>
+										}
+										else{
+											<option value="@item">@item</option>
+										}
+									}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><button type="submit" value="Vše (bez filtru)" /></td>
+							<td><input type="submit" value="Najdi" /></td>
+						</tr>
+					</table>
+				</th>
+			</tr>
+		</table>
+		</div>
+		</div>
+	}
+	@using (Html.BeginForm("List", "Home", FormMethod.Post))
+	{
+		<table id="customers" style="max-width:1000px" class="container-fluid">
+			<tr class="container-fluid">
+				<th>
+		<table id="customers" class="container-fluid" cellpadding="0" cellspacing="0">
+			<tr>
+				<th>
+				<td>Počet obrázků na stránku: </td>
+				<td>
+					<input type="number" value="@VideoPlayer_MVC.C_SHARP.MODELS.ImageGrouping" id="ImageGrouping" name="ImageGrouping">
+				</td>
+
+				<td>Počet řádků s obrázky: </td>
+				<td>
+					<input type="number" value="@VideoPlayer_MVC.C_SHARP.MODELS.ImageRows" id="ImageRows" name="ImageRows">
+				</td>
+
+				<td></td>
+				<td><input type="submit" value="Nastav zobrazení" /></td>
+			</tr>
+		</table>
+		</th>
+		</tr>
+		</table>
+	}
+	</div>
+	<script>
+function HideUnhideSearch() {
+  var x = document.getElementById("Search");
+  if (x.style.display === "none") {
+    x.style.display = "";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<button onclick="HideUnhideSearch()">Try it</button>
+
+	<p class="error" style="text-align:center">@ViewBag.ZadnaVideo</p>
+
+	<div class="container-fluid">
+		<div class="content">
+			@if (@ViewBag.SearchRes != null)
+			{
+				@foreach (var item in @ViewBag.SearchRes)
+				{
+					<div class="wrapper" style="width:290px">
+						<div class="box vintage">
+							<a class="nav-link text-light" title="Snímková frekvence: @item.Item?.mediaInfo?.Framerate&#10;Rozlišení: @item.Item?.mediaInfo?.VideoResolution&#10;Video kodek: @item.Item?.mediaInfo?.VideoCodec&#10;Délka: @TimeSpan.FromMilliseconds(@item.Item?.mediaInfo?.Duration)" asp-area=""
+							   asp-controller="Home"
+							   asp-action="VideoPlay"
+							   asp-route-video="@item.Item?.URL"><img style="width:100%;object-fit:contain" loading="lazy" src="@item.Item?.thumbnail" alt="@item.Item?.URL"></a>
+						</div>
+						<a class="nav-link text-light" asp-area=""
+						   asp-controller="Home"
+						   asp-action="VideoPlay"
+						   asp-route-video="@item.Item?.URL">@item.Item?.DateTime</a>
+
+						<a class="nav-link text-light" asp-area=""
+						   asp-controller="Home"
+						   asp-action="VideoPlay"
+						   asp-route-video="@item.Item?.URL">@item.Item?.FileInfo.Name</a>
+
+						<a class="nav-link text-light" asp-area=""
+						   asp-controller="Home"
+						   asp-action="VideoPlay"
+						   asp-route-video="@item.Item?.URL">@item.Item?.Folder</a>
+					</div>
+				}}
+		</div>
+	</div>
+
+	<div class="wrapper,container-fluid" style="text-align:center;">
+		<nav>
+			@foreach (var item in ViewBag.uls_)
+			{
+				<ul>
+					@foreach (var item1 in item)
+					{
+						@if (@ViewBag.ID_QUERY == @item1.Item1)
+						{
+							<li class="aktivni">
+								<a style="color: palevioletred" title="@item1.Item2" d asp-area=""
+								   asp-controller="Home"
+								   asp-action="List"
+								   asp-route-ID_QUERY="@item1.Item1">@item1.Item1</a>
+							</li>
+						}
+						else
+						{
+							<li class="aktivni">
+								<a style="color: white" title="@item1.Item2" d asp-area=""
+								   asp-controller="Home"
+								   asp-action="List"
+								   asp-route-ID_QUERY="@item1.Item1">@item1.Item1</a>
+							</li>
+						}
+					}
+				</ul>
+			}
+		</nav>
+	</div>
+</div>
+

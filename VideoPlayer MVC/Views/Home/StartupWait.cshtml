@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<head>
+    <title>Page Title</title>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<nav>
+			<ul>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="ServerMonitor">Server Status</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="RestartIIS">Restartovat IIS</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="VypnoutServer">Vypnout server</a>
+				</li>
+				<li class="aktivni">
+					<a target="popup" target="_parent " asp-area=""
+					   asp-controller="Home" asp-action="Login"
+					   asp-route-Page="State_of_DateTask">Table</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+	<script type="text/javascript">
+		setTimeout(function () {
+			location.reload();
+		}, 1);
+	</script>
+
+	<h1 style="text-align:center">Aplikace se spouští @VideoPlayer_MVC.C_SHARP.MODELS.StartTime.Elapsed</h1>
+    <h1 style="text-align:center">@VideoPlayer_MVC.C_SHARP.MODELS.AllVideos.Count() files</h1>
+	<h1 style="text-align:center"> </h1>
+
+	<h3 style="text-align:center">PC Model: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.ModelPC</h3>
+	<h3 style="text-align:center">Server Uživatel: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.Uživatel</h3>
+	<h3 style="text-align:center">CPU: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.CPU</h3>
+	<h3 style="text-align:center">Memory swap: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.MemorySwapFileString</h3>
+	<h3 style="text-align:center">Disk Write and Read: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.DiskWriteRead</h3>
+	<h3 style="text-align:center">Net: @VideoPlayer_MVC.C_SHARP.MODELS.MonitorResult?.NetSenteceived</h3>
+</body>
